@@ -395,7 +395,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/scripts.js"></script>
         <script>
-                function fetchData() {
+        function fetchData() {
         const headers = new Headers({
             "Content-Type": "application/json",
             "x-api-key":
@@ -408,12 +408,13 @@
         };
 
         fetch(
-            `https://api.thedogapi.com/v1/images/search?format=json&limit=10`,
+            `https://reqres.in/api/users`,
             options
         )
             .then((response) => response.json())
             .then((data) => {
-                criarCards(data, 0);
+                console.log(data)
+                criarCards(data.data, 0);
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -430,13 +431,12 @@
             let card = `
             <div class="col-sm-12 col-xs-12c ol-md-6 col-lg-4 mb-5">
                 <div class="card" style="border:none">
-                    <img src="${elemento.url}" class="card-img-top" alt="..." />
+                    <img src="${elemento.avatar}" class="card-img-top" alt="..." />
                     <div class="card-body">
-                        <h2 class="card-title">${elemento.name}</h2>
+                        <h2 class="card-title">${elemento.first_name} ${elemento.last_name}</h2>
                         <p class="card-text h5">
-                            <b>Species:</b> ${elemento.species}
+                            <b>Email:</b> ${elemento.email}
                             <hr>
-                            <b class="h5">Status:<span style="color: ${textColor};"> ${elemento.status}</span></b>
                         </p>
                     </div>
                 </div>
