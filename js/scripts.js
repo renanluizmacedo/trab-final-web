@@ -49,83 +49,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         });
     });
 
-    function fetchData() {
-        const headers = new Headers({
-            "Content-Type": "application/json",
-            "x-api-key":
-                "{{live_HGeyowjomx5eFiOqhGebZpAwQT65cQdIqdGzJUMYQstGB4LeA1vRkfGUNa7TztAY}}",
-        });
 
-        const options = {
-            method: "GET",
-            headers: headers,
-        };
-
-        fetch(
-            `https://api.thedogapi.com/v1/images/search?format=json&limit=10`,
-            options
-        )
-            .then((response) => response.json())
-            .then((data) => {
-                criarCards(data);
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    }
-
-    function criarCards(data) {
-        let container = document.querySelector(".container-items");
-
-        data.forEach((elemento) => {
-            let textColor = "blue"; // Default color
-
-            let card = `
-            <div class="col-sm-12 col-xs-12c ol-md-6 col-lg-4 mb-5">
-                <div class="card" style="border:none">
-                    <img src="${elemento.url}" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h2 class="card-title">${elemento.name}</h2>
-                        <p class="card-text h5">
-                            <b>Species:</b> ${elemento.species}
-                            <hr>
-                            <b class="h5">Status:<span style="color: ${textColor};"> ${elemento.status}</span></b>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            `;
-            container.innerHTML += card;
-        });
-    }
-    function criarCardsManual(data) {
-        let container = document.querySelector(".container-items");
-
-        data.forEach((elemento) => {
-            let textColor = "blue"; // Default color
-
-            let card = `
-            <div class="col-sm-12 col-xs-12c ol-md-6 col-lg-4 mb-5">
-                <div class="card" style="border:none">
-                    <img src="${elemento.url}" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                        <h2 class="card-title">${elemento.name}</h2>
-                        <p class="card-text h5">
-                            <b>Species:</b> ${elemento.species}
-                            <hr>
-                            <b class="h5">Status:<span style="color: ${textColor};"> ${elemento.status}</span></b>
-                        </p>
-                    </div>
-                    <div class="card-body d-flex justify-content-center">
-                        <button class="btn btn-danger card-link" onclick="deleteCharacter('${elemento.id}')">EXCLUIR</button>
-                    </div>
-                </div>
-            </div>
-            `;
-            container.innerHTML += card;
-        });
-    }
-    fetchData();
 });
 function deleteCharacter(dogId) {
     console.log(dogId);
@@ -146,7 +70,7 @@ function deleteCharacter(dogId) {
     };
 
     fetch(`https://api.thedogapi.com/v1/images/${dogId}`, requestOptions)
-    .then((response) => response.text())
+        .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
 }
